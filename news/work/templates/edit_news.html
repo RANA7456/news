@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block start %}
+    <div class="container mt-5">
+        <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>😐👉Edit News Here😐👈</h2>
+            {% if messages %}
+            <div class="alert alert-primary" role="alert">
+                {% for message in messages %}
+                {{message}}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <hr>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">News Heading</label>
+              <input name="news_name" value="{{edit_news1.news_name}}" required type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">News Description</label>
+              <textarea name="news_desc" value="" required class="form-control">{{edit_news1.news_desc}}</textarea>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">News Date</label>
+              <input type="date" name="news_date" class="form-control" value="{{edit_news1.news_date}}">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">News Image</label>
+                <input type="file" name="news_img" class="form-control">
+              </div>
+            <button type="submit" class="btn btn-success">👍 Edit news 👍</button>
+          </form>
+        <hr>
+        
+    </div>
+
+    <hr>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block start %}
+    <div class="container mt-5">
+
+        {% if messages %}
+            <div class="alert alert-primary" role="alert">
+                {% for message in messages %}
+                {{message}}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <section class="frm" id="frm">
+            
+        <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>🙂👉Add Your News Here........👈🙂</h2>
+            
+            <hr>
+
+            
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">News Heading</label>
+              <input name="news_name" required type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">News Description</label>
+              <textarea name="news_desc" required class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">News Date</label>
+                <input type="date" name="news_date" class="form-control">
+              </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">News Image</label>
+                <input type="file" name="news_img" class="form-control">
+              </div>
+            <button type="submit" class="btn btn-success">Add News 👍</button>
+          </form>
+          <br><br>
+        </section>
+        <hr>
+
+        <div class="mt-5">
+          <div class="mx-auto col-6">
+            <form action="">
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"><h4>🤔🫡 Search News 🫡🤔</h4></label>
+              <input type="text" name="search" class="form-control">
+            
+            </div>
+            <button type="submit" class="btn btn-primary ">Search</button>
+           </form>
+          </div>
+        </div>
+<br>
+        <hr>
+        <section class="read" id="read">
+            <h1 class="text-center">🤔😬😷🤫 Read latest news here.......😐😶‍🌫️🤯🧐</h1>
+            <br>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">News Heading</th>
+                <th scope="col">News Description</th>
+                <th scope="col">News Date</th>
+                <th scope="col">News Image</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for new in news_logic %}
+              <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{new.news_name}}</td>
+                <td>{{new.news_desc}}</td>
+                <td>{{new.news_date}}</td>
+                <td>
+                    <img src="/media/{{new.news_img}}" alt="" style="height:150px;">
+                </td>
+                <td>
+                    <a href="/delete_news/{{new.id}}" class="btn btn-danger m-3">Delete 😬</a>
+                    <a href="/edit_news/{{new.id}}" class="btn btn-success">Update 🫡</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <!-- <nav aria-label="Page navigation example">
+            <ul class="pagination">
+            {% if page_obj.has_previous %}
+              <li class="page-item ">
+                <a class="page-link" href="?page=1">&laquo; first</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+              {% endif %}
+              <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</a>
+              </li>
+              {% if page_obj.has_next %}
+              <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+              </li>
+              {% endif %}
+            </ul>
+          </nav> -->
+        </section>
+
+    </div>
+
+    <hr>
+{% endblock %}
